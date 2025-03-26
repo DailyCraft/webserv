@@ -6,18 +6,15 @@
 /*   By: dvan-hum <dvan-hum@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:43:10 by dvan-hum          #+#    #+#             */
-/*   Updated: 2025/03/24 15:46:13 by dvan-hum         ###   ########.fr       */
+/*   Updated: 2025/03/26 10:37:01 by dvan-hum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <string>
 #include <stdexcept>
 #include <cstdlib>
 #include <netinet/in.h>
-
-#define MAX_EVENTS 10
 
 using namespace std;
 
@@ -97,5 +94,14 @@ enum HttpStatus {
 	NETWORK_AUTHENTICATION_REQUIRED = 511,
 };
 
+class HttpRequestError : public exception {
+	HttpStatus _status;
+
+public:
+	HttpRequestError(HttpStatus status): _status(status) {}
+	HttpStatus getStatus() const { return _status; }
+};
+
+HttpMethod getMethod(const string& method);
 string getHttpStatusMessage(HttpStatus status);
 sockaddr_in parseAddress(const string& address);

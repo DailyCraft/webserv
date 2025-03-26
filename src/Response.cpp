@@ -6,7 +6,7 @@
 /*   By: dvan-hum <dvan-hum@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 14:09:03 by dvan-hum          #+#    #+#             */
-/*   Updated: 2025/03/24 16:07:34 by dvan-hum         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:17:25 by dvan-hum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,15 @@ Response& Response::addHeader(const string& header) {
 	return *this;
 }
 
-Response& Response::setBody(const string &body) {
+Response &Response::setBody(const vector<char> body) {
 	_body = body;
+	ostringstream ss;
+	ss << "Content-Length: " << body.size();
+	return addHeader(ss.str());
+}
+
+Response& Response::setBody(const string& body) {
+	_body.insert(_body.end(), body.begin(), body.end());
 	ostringstream ss;
 	ss << "Content-Length: " << body.length();
 	return addHeader(ss.str());
@@ -39,7 +46,7 @@ string Response::toString() const
 		ss << _headers[i] << endl;
 	
 	ss << endl;
-	ss << _body;
+	ss << _body.data();
 
 	return ss.str();
 }

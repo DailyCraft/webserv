@@ -6,7 +6,7 @@
 #    By: dvan-hum <dvan-hum@student.42perpignan.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 16:04:07 by dvan-hum          #+#    #+#              #
-#    Updated: 2025/03/24 16:24:11 by dvan-hum         ###   ########.fr        #
+#    Updated: 2025/03/26 15:18:39 by dvan-hum         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME = webserv
 CXX = c++
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -O3
 
-SRC = main.cpp http.cpp
-CLASS = Config Server Request Response
+SRC = main.cpp http.cpp socket.cpp
+CLASS = Config Server Location Request Response
 SRC += $(CLASS:%=%.cpp)
 CLASS_HPP = $(CLASS:%=%.hpp)
 OBJ = $(SRC:%.cpp=obj/%.o)

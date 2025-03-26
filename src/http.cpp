@@ -6,11 +6,21 @@
 /*   By: dvan-hum <dvan-hum@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:03:50 by dvan-hum          #+#    #+#             */
-/*   Updated: 2025/03/24 16:25:30 by dvan-hum         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:03:22 by dvan-hum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "http.hpp"
+
+HttpMethod getMethod(const string& method) {
+	if (method == "GET")
+		return GET;
+	else if (method == "POST")
+		return POST;
+	else if (method == "DELETE")
+		return DELETE;
+	throw HttpRequestError(METHOD_NOT_ALLOWED);
+}
 
 string getHttpStatusMessage(HttpStatus status) {
 	switch (status) {
@@ -118,5 +128,5 @@ sockaddr_in parseAddress(const string &address) {
 		.sin_family = AF_INET,
 		.sin_port = htons(port),
 		.sin_addr = { .s_addr = addr }
-	};	
+	};
 }

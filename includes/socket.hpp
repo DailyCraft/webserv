@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Location.hpp                                       :+:      :+:    :+:   */
+/*   socket.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvan-hum <dvan-hum@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 15:42:00 by dvan-hum          #+#    #+#             */
-/*   Updated: 2025/03/26 16:24:17 by dvan-hum         ###   ########.fr       */
+/*   Created: 2025/03/26 09:09:28 by dvan-hum          #+#    #+#             */
+/*   Updated: 2025/03/26 10:36:39 by dvan-hum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <iostream>
-#include <map>
-#include <vector>
-#include <unistd.h>
+#include <stdexcept>
+#include <cstring>
+#include <cerrno>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include "http.hpp"
-#include "Request.hpp"
-#include "Response.hpp"
+#include <sys/epoll.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 
-class Location {
-public: // TODO: temp
-	vector<HttpMethod> _allowedMethods;
-	string _root;
-	//int returnStatus; // TODO: Check when invalid
-	//string returnPath; // TODO: allow file / url
+#define MAX_EVENTS 10
 
-public:
-	Response request(const Request& request);
-};
+using namespace std;
+
+void nonBlockingFd(int fd);
+void addEpollFd(int efd, int fd, uint32_t events);
+int createSocket(const sockaddr_in& address);
